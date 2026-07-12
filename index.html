@@ -552,25 +552,53 @@
             position: fixed;
             bottom: 18px;
             right: 18px;
-            z-index: 60;
+            z-index: 999;
             background: rgba(28, 10, 2, 0.9);
             border: 2px solid var(--mustard);
             border-radius: 999px;
-            padding: 9px 16px;
+            padding: 10px 16px 10px 10px;
             display: flex;
             align-items: center;
             gap: 10px;
+            box-shadow: 0 14px 30px rgba(0, 0, 0, .35);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            animation: floatWidget 4.5s ease-in-out infinite;
+        }
+
+        #audioWidget::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 999px;
+            border: 1px solid rgba(232, 178, 61, 0.22);
+            pointer-events: none;
+            animation: widgetPulse 2.4s ease-in-out infinite;
+        }
+
+        @keyframes floatWidget {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        @keyframes widgetPulse {
+            0% { transform: scale(0.96); opacity: .2; }
+            70% { transform: scale(1.08); opacity: 0; }
+            100% { transform: scale(1.08); opacity: 0; }
         }
 
         #audioBtn {
-            width: 30px;
-            height: 30px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             border: 2px solid var(--mustard);
-            background: transparent;
+            background: rgba(232, 178, 61, 0.1);
             color: var(--mustard);
             cursor: pointer;
-            font-size: 11px;
+            font-size: 15px;
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
         }
 
         #audioWidget span {
@@ -760,11 +788,19 @@
             #audioWidget {
                 bottom: 12px;
                 right: 12px;
-                padding: 8px 12px;
+                padding: 8px;
+                gap: 0;
+                animation-duration: 5.2s;
             }
 
             #audioWidget span {
-                font-size: 10px;
+                display: none;
+            }
+
+            #audioBtn {
+                width: 46px;
+                height: 46px;
+                font-size: 18px;
             }
 
             .wa-btn {
@@ -817,9 +853,13 @@
             }
 
             #audioWidget {
-                left: 12px;
+                left: auto;
                 right: 12px;
+                bottom: 12px;
+                width: 58px;
+                height: 58px;
                 justify-content: center;
+                padding: 0;
             }
         }
     </style>
@@ -839,7 +879,7 @@
 
     <!-- AUDIO WIDGET -->
     <div id="audioWidget">
-        <button id="audioBtn">▶</button>
+        <button id="audioBtn" aria-label="toggle music">♫</button>
         <span>Enjoy Music</span>
     </div>
 
